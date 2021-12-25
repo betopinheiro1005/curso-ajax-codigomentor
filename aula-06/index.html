@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Buscando pessoa</title>
+	<style type="text/css">
+		.encontrado{
+			color: green;
+			font-size: 16px;
+			font-family: 'Arial';
+		}
+		.nao_encontrado{
+			color: red;
+			font-size: 16px;	
+			font-family: 'Arial';
+		}
+	</style>
+</head>
+<body>
+    <label>Buscar pessoa: </label>
+    <input type="text" onkeyup="ajax_get_json(this.value)">
+
+    <br><br>
+
+    <div id="info"></div>
+
+	<script>
+		var resultado = document.getElementById("info");
+
+		function ajax_get_json(usuarioBuscado) {
+			
+			var xmlhttp;
+			
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+
+			if(usuarioBuscado.length === 0){
+				resultado.innerHTML = "";
+			} else {
+				xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+					var dados = JSON.parse(xmlhttp.responseText);
+					var x = encontrarPessoa(dados, usuarioBuscado);
+					var mensagem = (x === true) ? "<span class='encontrado'>Sim, foi encontrado!</span>" : "<span class='nao_encontrado'>Não foi encontrado!</span>";
+					resultado.innerHTML = mensagem;
+		    	}
+			}
+			
+			xmlhttp.open("GET", "dados.json", true); //inicia o pedido
+			xmlhttp.send(); // envia a petição ao servidor
+			}
+		}	
+
+		function encontrarPessoa(objetoJSON, usuario){
+			var nomes = [];
+			for(var i in objetoJSON){
+				nomes.push(objetoJSON[i].nome);
+			}
+
+
+			return nomes.indexOf(usuario) > -1;
+
+		}
+
+	</script>
+
+</body>
+</html>

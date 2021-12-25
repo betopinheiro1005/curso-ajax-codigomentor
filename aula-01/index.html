@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Lendo um arquivo txt em Ajax</title>
+</head>
+<body>
+    <h2>Curso AJAX</h2>
+
+    <button id="btnConsulta" onclick="executarAjax()">Clicar</button>
+
+    <br><br>
+
+    <div id="info"></div>
+
+	<script>
+		function executarAjax() {
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4 && xhttp.status == 200) {
+					document.getElementById("info").innerHTML = xhttp.responseText
+		    	}
+			};
+			xhttp.open("GET", "documento.txt", true); //inicia o pedido
+			xhttp.send(); // envia a petição ao servidor
+
+		}		
+	</script>
+
+</body>
+</html>

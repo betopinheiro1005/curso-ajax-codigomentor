@@ -1,0 +1,16 @@
+{
+	"Luis": {
+		"nome": "Luis",
+		"sobrenome": "Gomez",
+		"idade": 20,
+		"salario": 2000
+	},
+	"Maria":
+	{
+		"nome": "Maria",
+		"sobrenome": "Lopez",
+		"idade": 25,
+		"salario": 3000
+	}
+}
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Lendo dados em JSON</title>
+</head>
+<body>
+    <h2>Curso AJAX</h2>
+
+    <button id="btnConsulta" onclick="ajax_get_json()">Mostrar dados</button>
+
+    <br><br>
+
+    <div id="info"></div>
+
+	<script>
+		var resultado = document.getElementById("info");
+		function ajax_get_json() {
+			var xmlhttp;
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			// xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var dados = JSON.parse(xmlhttp.responseText);
+					// console.log(dados);
+					if(resultado.innerHTML === ""){
+						for(var i in dados){
+							resultado.innerHTML += dados[i].nome + " " + dados[i].sobrenome + " tem " + dados[i].idade + " anos<hr />";
+						}
+					}
+		    	}
+			};
+			xmlhttp.open("GET", "dados.json", true); //inicia o pedido
+			xmlhttp.send(); // envia a petição ao servidor
+
+		}		
+	</script>
+
+</body>
+</html>
